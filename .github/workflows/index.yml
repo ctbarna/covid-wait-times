@@ -21,5 +21,6 @@ jobs:
         with:
           token: ${{ secrets.GIST_TOKEN }}
           gist_id: 98b660129b01a5a2c050f3bab78aad70
+          gist_description: "Wait times at NYC H&H testing sites. Updated about every 5 minutes. Code at https://github.com/ctbarna/covid-wait-times"
           gist_file_name: wait.csv
           file_path: ./wait-times.csv
