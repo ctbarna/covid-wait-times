@@ -2,3 +2,4 @@ venv/
 .DS_Store
 testing-wait-times.pdf
 wait-times.csv
+__pycache__
