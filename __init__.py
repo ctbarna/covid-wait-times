@@ -65,7 +65,7 @@ writer = csv.DictWriter(open("wait-times.csv", "w"), fieldnames=[
     "wait_time",
     "last_reported",
     "address",
-    "location",
-    "borough"])
+    "borough",
+    "location"])
 writer.writeheader()
 writer.writerows(rows)
