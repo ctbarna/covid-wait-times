@@ -25,7 +25,6 @@ jobs:
           gist_description: "Wait times at NYC H&H COVID testing sites. Updated about every 10 minutes between 8am and 8pm EST. Code at https://github.com/ctbarna/covid-wait-times"
           gist_file_name: wait.csv
           file_path: ./wait-times.csv
-            - uses: exuanbo/actions-deploy-gist@v1
       - uses: exuanbo/actions-deploy-gist@v1
         if: github.ref == 'refs/heads/main'
         with:
