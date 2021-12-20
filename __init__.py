@@ -61,11 +61,11 @@ while keep_going:
     })
 
 writer = csv.DictWriter(open("wait-times.csv", "w"), fieldnames=[
-    "location",
     "fullname",
-    "address",
-    "borough",
     "wait_time",
-    "last_reported"])
+    "last_reported",
+    "address",
+    "location",
+    "borough"])
 writer.writeheader()
 writer.writerows(rows)
