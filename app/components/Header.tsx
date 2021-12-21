@@ -8,7 +8,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="lg:flex lg:items-center lg:justify-between">
+    <div className="lg:flex lg:items-center lg:justify-between p-4 md:p-0 pb-0">
       <div className="flex-1 min-w-0">{children}</div>
       <div className="flex-shrink-0">
         <input

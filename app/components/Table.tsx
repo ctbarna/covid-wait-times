@@ -4,7 +4,7 @@ import slugify from "../utils/slugify";
 const Table = ({ locations }: { locations: WaitTime[] }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="table-auto w-full" style={{ maxWidth: "100vw" }}>
+      <table className="table-auto w-full text-sm">
         <thead className="font-bold bg-slate-300 border-b border-b-black">
           <td className="p-2">Location</td>
           <td className="p-2">Wait Time</td>

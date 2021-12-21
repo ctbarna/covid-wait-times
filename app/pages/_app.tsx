@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="p-8">
+    <div className="p-0 md:p-8">
       <Component {...pageProps} />
       <div className="text-center mt-8">
         &copy; Chris Barna 2021.{" "}

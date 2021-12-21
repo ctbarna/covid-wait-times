@@ -37,7 +37,7 @@ const Home: NextPage<Props> = ({ locations }) => {
         </h1>
         <p>NYC H&amp;H Testing wait times</p>
       </Header>
-      <div className="mt-8">
+      <div className="mt-4 md:mt-8">
         <FilteredTable />
       </div>
     </LocationStore>

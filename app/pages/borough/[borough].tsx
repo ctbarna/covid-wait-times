@@ -22,7 +22,7 @@ const Borough = ({
           COVID Testing Wait Time in {borough}
         </h1>
       </Header>
-      <div className="mt-8">
+      <div className="mt-4 md:mt-8">
         <Table locations={locations} />
       </div>
     </LocationStore>
