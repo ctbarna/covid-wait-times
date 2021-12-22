@@ -13,7 +13,19 @@ const Home: NextPage<Props> = ({ locations }) => {
   return (
     <LocationStore initialLocations={locations}>
       <Head>
-        <title>NYC COVID Testing Wait Time</title>
+        <title>How long is the COVID testing line in NYC?</title>
+        <meta
+          name="og:title"
+          content="How long is the COVID testing line in NYC?"
+        />
+        <meta
+          name="description"
+          content="Live updates on the wait time for New York's public COVID testing sites."
+        />
+        <meta
+          name="og:description"
+          content="Live updates on the wait time for New York's public COVID testing sites."
+        />
       </Head>
       <Header>
         <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
@@ -30,11 +42,6 @@ const Home: NextPage<Props> = ({ locations }) => {
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const data = await fetchData();
-  if (!data.length) {
-    return {
-      notFound: true,
-    };
-  }
 
   return {
     props: { locations: data },

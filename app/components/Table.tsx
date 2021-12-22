@@ -80,6 +80,18 @@ const Table = () => {
     });
   });
 
+  if (!locations.length) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <h1 className="text-4xl font-bold">Check Back Later</h1>
+        <p className="text-lg">
+          Testing line wait times are only available while testing sites are
+          open.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="table-auto w-full text-sm">

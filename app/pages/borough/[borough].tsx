@@ -10,7 +10,7 @@ const Borough = ({
   borough,
 }: {
   locations: WaitTime[];
-  borough: string;
+  borough: "brooklyn" | "manhattan" | "queens" | "bronx" | "staten-island";
 }) => {
   return (
     <LocationStore initialLocations={locations}>
@@ -32,20 +32,23 @@ const Borough = ({
 export async function getServerSideProps({
   query: { borough },
 }: {
-  query: { borough: string };
+  query: {
+    borough: "brooklyn" | "manhattan" | "queens" | "bronx" | "staten-island";
+  };
 }) {
   const data = await fetchData();
 
   const dataByBorough = data.filter(({ borough: b }) => slugify(b) === borough);
-
-  if (!dataByBorough.length) {
-    return {
-      notFound: true,
-    };
-  }
+  const boroughs = {
+    brooklyn: "Brooklyn",
+    manhattan: "Manhattan",
+    queens: "Queens",
+    bronx: "Bronx",
+    "staten-island": "Staten Island",
+  };
 
   return {
-    props: { locations: dataByBorough, borough: dataByBorough[0].borough },
+    props: { locations: dataByBorough, borough: boroughs[borough] },
   };
 }
 
