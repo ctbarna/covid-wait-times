@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { ReducerAction, useReducer } from "react";
 
 type ReducerState = {
   locations: WaitTime[];
@@ -40,7 +40,7 @@ export const LocationContext = React.createContext<LocationContextType>({
 
 const reducer = (
   state: ReducerState,
-  action: { type: string; payload: any }
+  action: LocationActions
 ): ReducerState => {
   switch (action.type) {
     case "SEARCH":
