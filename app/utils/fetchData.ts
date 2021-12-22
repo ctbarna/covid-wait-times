@@ -19,8 +19,11 @@ const fetchData = async (): Promise<WaitTime[]> => {
   const data: WaitTime[] = parse(rawData, {
     columns: true,
     onRecord: (record: WaitTime) => {
-      record.ordinal_wait_time =
-        waitTimeMapping[record.wait_time.replace("*", "")] || 6;
+      const cleanedWaitTime = record.wait_time.replace(
+        /\*/g,
+        ""
+      ) as WaitTimeValues;
+      record.ordinal_wait_time = waitTimeMapping[cleanedWaitTime] || 6;
       return record;
     },
   });

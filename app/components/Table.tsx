@@ -64,7 +64,7 @@ const Table = () => {
         location.borough.toLowerCase().includes(search)
     );
 
-    if (!state.ordering.key.length) {
+    if (state.ordering.key === "") {
       return locations;
     }
 
