@@ -1,3 +1,5 @@
+/// <reference types="gtag.js" />
+
 type WaitTimeValues =
   | "No Wait Time"
   | "0-30 Minutes"
@@ -15,4 +17,8 @@ declare interface WaitTime {
   address: string;
   borough: string;
   location: string;
+}
+
+declare interface Window {
+  gtag: Gtag.Gtag;
 }

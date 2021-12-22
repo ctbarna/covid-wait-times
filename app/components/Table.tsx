@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import slugify from "../utils/slugify";
 import { LocationContext } from "./LocationStore";
+import { event } from "../utils/gtag";
 
 const TableHeader = ({
   orderingKey,
@@ -19,18 +20,32 @@ const TableHeader = ({
     if (ordering.key === orderingKey) {
       switch (ordering.direction) {
         case "asc":
+          event({
+            action: "order",
+            category: orderingKey,
+            label: "desc",
+          });
           dispatch({
             type: "ORDER",
             payload: { key: orderingKey, direction: "desc" },
           });
           return;
         case "desc":
+          event({
+            action: "order",
+            category: "reset",
+          });
           dispatch({
             type: "RESET",
           });
           return;
       }
     }
+    event({
+      action: "order",
+      category: orderingKey,
+      label: "asc",
+    });
     dispatch({
       type: "ORDER",
       payload: { key: orderingKey, direction: "asc" },
