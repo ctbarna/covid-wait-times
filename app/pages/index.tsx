@@ -1,28 +1,12 @@
-import { useContext } from "react";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Header from "../components/Header";
 import Table from "../components/Table";
-import LocationStore, { LocationContext } from "../components/LocationStore";
+import LocationStore from "../components/LocationStore";
 import fetchData from "../utils/fetchData";
 import Head from "next/head";
 
 type Props = {
   locations: WaitTime[];
-};
-
-const FilteredTable = () => {
-  const { selector } = useContext(LocationContext);
-  const locations = selector((state) => {
-    const search = state.search.toLowerCase();
-    return state.locations.filter(
-      (location) =>
-        location.fullname.toLowerCase().includes(search) ||
-        location.address.toLowerCase().includes(search) ||
-        location.borough.toLowerCase().includes(search)
-    );
-  });
-
-  return <Table locations={locations} />;
 };
 
 const Home: NextPage<Props> = ({ locations }) => {
@@ -38,16 +22,23 @@ const Home: NextPage<Props> = ({ locations }) => {
         <p>NYC H&amp;H Testing wait times</p>
       </Header>
       <div className="mt-4 md:mt-8">
-        <FilteredTable />
+        <Table />
       </div>
     </LocationStore>
   );
 };
 
-export async function getServerSideProps(): Promise<{ props: Props }> {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const data = await fetchData();
+  if (!data.length) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: { locations: await fetchData() },
+    props: { locations: data },
   };
-}
+};
 
 export default Home;

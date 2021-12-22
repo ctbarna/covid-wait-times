@@ -1,16 +1,94 @@
 import Link from "next/link";
+import React, { useContext } from "react";
 import slugify from "../utils/slugify";
+import { LocationContext } from "./LocationStore";
 
-const Table = ({ locations }: { locations: WaitTime[] }) => {
+const TableHeader = ({
+  orderingKey,
+  children,
+}: {
+  orderingKey: keyof WaitTime;
+  children: React.ReactNode;
+}) => {
+  const {
+    dispatch,
+    state: { ordering },
+  } = useContext(LocationContext);
+
+  const onChangeOrder = () => {
+    if (ordering.key === orderingKey) {
+      switch (ordering.direction) {
+        case "asc":
+          dispatch({
+            type: "ORDER",
+            payload: { key: orderingKey, direction: "desc" },
+          });
+          return;
+        case "desc":
+          dispatch({
+            type: "RESET",
+          });
+          return;
+      }
+    }
+    dispatch({
+      type: "ORDER",
+      payload: { key: orderingKey, direction: "asc" },
+    });
+  };
+
+  return (
+    <th className="p-2 text-left">
+      <button className="font-bold" onClick={onChangeOrder}>
+        {children}{" "}
+        {ordering.key === orderingKey && ordering.direction === "asc" && (
+          <span>&#9650;</span>
+        )}
+        {ordering.key === orderingKey && ordering.direction === "desc" && (
+          <span>&#9660;</span>
+        )}
+      </button>
+    </th>
+  );
+};
+
+const Table = () => {
+  const { selector } = useContext(LocationContext);
+
+  const locations = selector((state) => {
+    const search = state.search.toLowerCase();
+    const locations = state.locations.filter(
+      (location) =>
+        location.fullname.toLowerCase().includes(search) ||
+        location.address.toLowerCase().includes(search) ||
+        location.borough.toLowerCase().includes(search)
+    );
+
+    if (!state.ordering.key.length) {
+      return locations;
+    }
+
+    const key = state.ordering.key;
+    const direction = state.ordering.direction;
+
+    return locations.sort((a, b) => {
+      if (direction === "asc") {
+        return a[key] < b[key] ? -1 : 1;
+      }
+
+      return a[key] > b[key] ? -1 : 1;
+    });
+  });
+
   return (
     <div className="overflow-x-auto">
       <table className="table-auto w-full text-sm">
         <thead className="font-bold bg-slate-300 border-b border-b-black">
-          <td className="p-2">Location</td>
-          <td className="p-2">Wait Time</td>
-          <td className="p-2">Last Reported</td>
-          <td className="p-2">Borough</td>
-          <td className="p-2">Address</td>
+          <TableHeader orderingKey="fullname">Location</TableHeader>
+          <TableHeader orderingKey="ordinal_wait_time">Wait Time</TableHeader>
+          <TableHeader orderingKey="last_reported">Last Reported</TableHeader>
+          <TableHeader orderingKey="borough">Borough</TableHeader>
+          <TableHeader orderingKey="address">Address</TableHeader>
         </thead>
         <tbody>
           {locations.map((location, i) => (

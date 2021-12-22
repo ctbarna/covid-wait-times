@@ -23,7 +23,7 @@ const Borough = ({
         </h1>
       </Header>
       <div className="mt-4 md:mt-8">
-        <Table locations={locations} />
+        <Table />
       </div>
     </LocationStore>
   );

@@ -3,17 +3,33 @@ import React, { useReducer } from "react";
 type ReducerState = {
   locations: WaitTime[];
   search: string;
+  ordering: {
+    key: keyof WaitTime | "";
+    direction: "asc" | "desc" | "";
+  };
 };
+
+type LocationActions =
+  | { type: "SEARCH"; payload: string }
+  | {
+      type: "ORDER";
+      payload: { key: keyof WaitTime; direction: "asc" | "desc" };
+    }
+  | { type: "RESET" };
 
 type LocationContextType = {
   state: ReducerState;
-  dispatch: (action: { type: string; payload: any }) => void;
+  dispatch: (action: LocationActions) => void;
   selector: (callback: (state: ReducerState) => WaitTime[]) => WaitTime[];
 };
 
 const init = (locations: WaitTime[]): ReducerState => ({
   locations,
   search: "",
+  ordering: {
+    key: "",
+    direction: "",
+  },
 });
 
 export const LocationContext = React.createContext<LocationContextType>({
@@ -31,6 +47,21 @@ const reducer = (
       return {
         ...state,
         search: action.payload,
+      };
+
+    case "ORDER":
+      return {
+        ...state,
+        ordering: action.payload,
+      };
+
+    case "RESET":
+      return {
+        ...state,
+        ordering: {
+          key: "",
+          direction: "",
+        },
       };
 
     default:
