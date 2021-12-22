@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import Header from "../../components/Header";
 import LocationStore, { LocationContext } from "../../components/LocationStore";
@@ -10,10 +11,21 @@ const Borough = ({
   borough,
 }: {
   locations: WaitTime[];
-  borough: "brooklyn" | "manhattan" | "queens" | "bronx" | "staten-island";
+  borough: "Brooklyn" | "Manhattan" | "Queens" | "Bronx" | "Staten Island";
 }) => {
   return (
     <LocationStore initialLocations={locations}>
+      <Head>
+        <title>How long is the COVID testing line in {borough}?</title>
+        <meta
+          name="og:title"
+          content={`How long is the COVID testing line in ${borough}?`}
+        />
+        <meta
+          name="og:description"
+          content={`Live updates on the wait time for ${borough}'s public COVID testing sites.`}
+        />
+      </Head>
       <Link href="/" passHref>
         <a className="underline text-blue-600 hover:text-blue-500 mb-2">Home</a>
       </Link>
