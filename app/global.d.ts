@@ -15,6 +15,8 @@ declare interface WaitTime {
   wait_time: WaitTimeValues | `${WaitTimeValues}*`;
   last_reported: string;
   address: string;
+  lat: string;
+  lng: string;
   borough: string;
   location: string;
 }
