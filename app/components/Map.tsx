@@ -57,8 +57,8 @@ const Map = () => {
 
   return (
     <div id="sites-map" style={{ height: '75vh' }} >
-      <div className="absolute z-10 top-2 left-2 bg-white p-2 rounded-sm">
-        {Object.entries(waitTimeMapping).map(([key, time]) => <div><span style={{ backgroundColor: colorScale(time) }} className="inline-block w-3 h-3 mr-2" />{key}</div>)}
+      <div className={`absolute z-10 top-2 left-2 bg-white p-2 rounded-sm ${pageIsMounted ? '' : 'hidden'}`}>
+        {Object.entries(waitTimeMapping).map(([key, time]) => <div key={key}><span style={{ backgroundColor: colorScale(time) }} className="inline-block w-3 h-3 mr-2" />{key}</div>)}
       </div>
     </div>
   );
