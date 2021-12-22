@@ -23,7 +23,7 @@ const Borough = ({
         />
         <meta
           name="og:description"
-          content={`Live updates on the wait time for ${borough}'s public COVID testing sites.`}
+          content={`Live updates of the wait time for ${borough}'s public COVID testing sites.`}
         />
       </Head>
       <Link href="/" passHref>

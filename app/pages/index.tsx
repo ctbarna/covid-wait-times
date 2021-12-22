@@ -20,11 +20,11 @@ const Home: NextPage<Props> = ({ locations }) => {
         />
         <meta
           name="description"
-          content="Live updates on the wait time for New York's public COVID testing sites."
+          content="Live updates of the wait time for New York's public COVID testing sites."
         />
         <meta
           name="og:description"
-          content="Live updates on the wait time for New York's public COVID testing sites."
+          content="Live updates of the wait time for New York's public COVID testing sites."
         />
       </Head>
       <Header>
