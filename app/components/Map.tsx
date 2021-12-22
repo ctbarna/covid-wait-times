@@ -10,8 +10,9 @@ const formatPopup = (location: WaitTime) => (`
     <h3 class="text-lg font-bold py-2">Location</h3>
     <div class="text-md">${location.fullname}</div>
     <div class="text-md">${location.address}</div>
-    <h3 class="text-lg font-bold py-2">Wait Time</h3>
-    <div class="text-md">${location.wait_time}</div>
+    <h3 class="text-lg font-bold py-2">Details</h3>
+    <div class="text-md">Wait Time: ${location.wait_time}</div>
+    <div class="text-md">Last Reported: ${location.last_reported}</div>
   </div>
 `);
 

@@ -30,8 +30,10 @@ const SiteMap: NextPage<Props> = ({ locations }) => {
       </Link>
       <Header>
         <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-          Map of NYC Locations
+          Map of City-Run Testing Locations
         </h1>
+        <p>NYC H&H Testing locations that include wait times. This list is not exhaustive; there are more locations listed without wait times. Check <a
+          className="underline text-blue-600 hover:text-blue-500" href="https://www.nychealthandhospitals.org/covid-19-testing-sites/" target="_blank">the NYC H&H testing sites webpage</a> for more details.</p>
       </Header>
       <div className="mt-4 md:mt-8">
         <Map />
