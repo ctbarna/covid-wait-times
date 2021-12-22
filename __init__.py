@@ -11,7 +11,7 @@ with open("testing-wait-times.pdf", "wb") as f:
     f.write(response.content)
 
 # Reopen that same file.
-file = open("testing-wait-times.pdf", "rb") 
+file = open("testing-wait-times.pdf", "rb")
 pdfReader = PyPDF2.PdfFileReader(file)
 page = pdfReader.getPage(0)
 lines = page.extractText().split("\n")
@@ -45,6 +45,8 @@ while keep_going:
         address = center.get("address")
         boro = center.get("boro")
         fullname = center.get("fullname", place)
+        lat = center.get("lat", place)
+        lng = center.get("lng", place)
     else:
         logging.warning("Center not found %s " % place)
         address = None
@@ -55,6 +57,8 @@ while keep_going:
         "location": place,
         "fullname": fullname,
         "address": address,
+        "lat": lat,
+        "lng": lng,
         "borough": boro,
         "wait_time": wait_time,
         "last_reported": last_reported,
@@ -65,6 +69,8 @@ writer = csv.DictWriter(open("wait-times.csv", "w"), fieldnames=[
     "wait_time",
     "last_reported",
     "address",
+    "lat",
+    "lng",
     "borough",
     "location"])
 writer.writeheader()
