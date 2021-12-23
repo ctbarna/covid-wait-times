@@ -37,11 +37,11 @@ const SiteMap: NextPage<Props> = ({ locations }) => {
           exhaustive; there are more locations listed without wait times. Check{" "}
           <a
             className="underline text-blue-600 hover:text-blue-500"
-            href="https://www.nychealthandhospitals.org/covid-19-testing-sites/"
+            href="https://testingsites.nyc/"
             target="_blank"
             rel="noreferrer"
           >
-            the NYC H&H testing sites webpage
+            Ellie Frymire&apos;s testingsites.nyc
           </a>{" "}
           for more details.
         </p>
