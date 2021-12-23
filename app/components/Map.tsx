@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, useState } from "react";
 import { LocationContext } from "./LocationStore";
 import { scaleLinear } from "d3-scale";
 import waitTimeMapping from "../utils/waitTimeMapping";
 import mapboxgl from "mapbox-gl";
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
 
 const formatPopup = (location: WaitTime) => `
   <div class="font-sans px-2">
@@ -28,16 +28,19 @@ const Marker = ({
   mapRef,
 }: {
   location: WaitTime;
-  mapRef: React.RefObject<typeof mapboxgl.Map>;
+  mapRef: React.MutableRefObject<mapboxgl.Map>;
 }) => {
-  const markerRef = useRef<typeof mapboxgl.Marker>();
+  const markerRef = useRef<mapboxgl.Marker>();
   useEffect(() => {
     markerRef.current = new mapboxgl.Marker({
       color: colorScale(location.ordinal_wait_time),
     })
-      .setLngLat({ lat: location.lat, lng: location.lng })
+      .setLngLat({
+        lat: parseFloat(location.lat),
+        lng: parseFloat(location.lng),
+      })
       .setPopup(new mapboxgl.Popup().setHTML(formatPopup(location)))
-      .addTo(mapRef.current);
+      .addTo(mapRef.current as mapboxgl.Map);
 
     return () => {
       if (markerRef.current) markerRef.current.remove();
@@ -48,7 +51,8 @@ const Marker = ({
 };
 
 const Map = () => {
-  const mapRef = useRef<typeof mapboxgl.Map>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapRef = useRef<mapboxgl.Map>();
 
   const { selector } = useContext(LocationContext);
 
@@ -70,22 +74,23 @@ const Map = () => {
         center: [-74.0183, 40.7077], // starting position [lng, lat]
         zoom: 11, // starting zoom
       });
+      setMapLoaded(true);
     }
-  });
+  }, []);
 
   return (
     <div id="sites-map" style={{ height: "75vh" }}>
       <div
         className={`absolute z-10 top-2 left-2 bg-white p-2 rounded-sm ${
-          mapRef.current ? "" : "hidden"
+          mapLoaded ? "" : "hidden"
         }`}
       >
-        {mapRef.current &&
+        {mapLoaded &&
           locations.map((location) => (
             <Marker
               key={location.location}
               location={location}
-              mapRef={mapRef}
+              mapRef={mapRef as React.MutableRefObject<mapboxgl.Map>}
             />
           ))}
         {Object.entries(waitTimeMapping).map(([key, time]) => (
