@@ -1,6 +1,6 @@
 import { parse } from "csv-parse/sync";
 
-const waitTimeMapping = {
+export const waitTimeMapping = {
   "No Wait Time": 0,
   "0-30 Minutes": 1,
   "30-60 Minutes": 2,

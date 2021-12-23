@@ -4,6 +4,7 @@ import Table from "../components/Table";
 import LocationStore from "../components/LocationStore";
 import fetchData from "../utils/fetchData";
 import Head from "next/head";
+import Link from "next/link";
 
 type Props = {
   locations: WaitTime[];
@@ -33,6 +34,9 @@ const Home: NextPage<Props> = ({ locations }) => {
         </h1>
         <p>NYC H&amp;H Testing wait times</p>
       </Header>
+      <Link href="/map" passHref>
+        <a className="underline text-blue-600 hover:text-blue-500 mb-2">Map</a>
+      </Link>
       <div className="mt-4 md:mt-8">
         <Table />
       </div>
