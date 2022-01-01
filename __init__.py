@@ -25,7 +25,7 @@ rows = []
 # Using a while loop because the offsets are different for each entry.
 while keep_going:
     # In the current formatting, the terminator is a date.
-    if re.match("\d{2}\/\d{2}\/\d{4}", lines[cursor]):
+    if re.match("\d{1,2}\/\d{1,2}\/\d{4}", lines[cursor]):
         keep_going = False
         break
 
